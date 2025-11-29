@@ -20,7 +20,7 @@ class QuizRequest(BaseModel):
     class Config:
         extra = "allow"
 
-@app.post("/")
+@app.post("/", status_code=200)
 async def solve_quiz_endpoint(request: QuizRequest, background_tasks: BackgroundTasks):
     logger.info(f"Received quiz request for URL: {request.url}")
     
@@ -29,7 +29,7 @@ async def solve_quiz_endpoint(request: QuizRequest, background_tasks: Background
     if not expected_secret:
         logger.warning("QUIZ_SECRET not set in environment variables. Skipping secret validation.")
     elif request.secret != expected_secret:
-        logger.error("Invalid secret provided.")
+        logger.error(f"Invalid secret provided: {request.secret} is not {expected_secret}")
         raise HTTPException(status_code=403, detail="Invalid secret")
     
     # Start solving in background

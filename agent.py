@@ -3,7 +3,7 @@ from agno.models.openai.chat import OpenAIChat
 from agno.db.sqlite.sqlite import SqliteDb
 import os
 from dotenv import load_dotenv
-from tools import download_file_as_base64, fetch_page_text, transcribe_audio, run_python_code
+from tools import fetch_page_text, fetch_page_scripts, run_python_code, transcribe_audio, understand_image, call_api, execute_python, read_pdf, read_zip, search_history
 import logging
 
 logger = logging.getLogger(__name__)
@@ -34,10 +34,10 @@ def get_agent():
             "You will be given a task description, often involving data analysis or web scraping.",
             "You need to solve the task and provide the answer.",
             "The answer should be in the format requested by the task.",
-            "If you need to download a file, use the `download_file_as_base64` tool.",
+            "If you need to download a file, write Python code to do it.",
             "Be concise and accurate."
         ],
-        tools=[download_file_as_base64, fetch_page_text, transcribe_audio, run_python_code],
+        tools=[fetch_page_text, fetch_page_scripts, run_python_code, transcribe_audio, understand_image, call_api, execute_python, read_pdf, read_zip, search_history],
         markdown=True,
         debug_mode=True,
         db=SqliteDb(db_file="agent_memory.db"),

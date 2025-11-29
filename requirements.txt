@@ -10,3 +10,10 @@ lxml
 openai
 SpeechRecognition
 pydub
+scikit-learn
+openai-whisper
+matplotlib
+seaborn
+pypdf
+duckdb
+Pillow
